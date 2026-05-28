@@ -15,7 +15,10 @@ if (!empty($currentBatch)) {
     $this->logging('Batch is running');
 } else {
     $this->initServices();
-    // existing logic continues here
+    foreach ($listCsv as $fileCsv) {
+        $logCompareResultInfo = $gajoenCompareResultInfo;
+        // existing logic continues here
+    }
 }
 ```
 
@@ -29,7 +32,10 @@ if (!empty($currentBatch)) {
 }
 
 $this->initServices();
-// existing logic continues here
+foreach ($listCsv as $fileCsv) {
+    $logCompareResultInfo = $gajoenCompareResultInfo;
+    // existing logic continues here
+}
 ```
 
 The real behavioral change is small: return early when a batch is already running. But because the old `else` block is removed, the rest of the method is shifted left by one indentation level. GitHub may then render a long delete block on the left and a long add block on the right, placing logically identical code far apart.
