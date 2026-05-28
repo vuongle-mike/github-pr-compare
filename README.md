@@ -51,6 +51,8 @@ is effectively the same logic with only leading whitespace changed.
 
 This tool uses Mergely's side-by-side diff behavior to align those related lines more closely. The goal is to make review easier for refactors where most code is unchanged but GitHub's default diff makes the change look much larger than it is.
 
+This works best for small to medium refactors where most logic is unchanged but GitHub's alignment makes the diff noisy. For very large refactors involving hundreds of changed lines, the review can still be difficult because the reader still needs to understand the broader code movement and behavior changes.
+
 ## Requirements
 
 - Node.js 20 or newer
