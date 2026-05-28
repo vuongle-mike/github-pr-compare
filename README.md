@@ -150,7 +150,7 @@ The GitHub token is not sent to the browser. It is used server-side for local `g
   - `index.html`
   - `app.js`
   - `styles.css`
-- `cloned-sites/editor.mergely.com/` - vendored Mergely bundle/assets
+- `cloned-sites/editor.mergely.com/` - vendored Mergely bundle/assets cloned from https://editor.mergely.com/
 - `.cache/pr-compare/` - runtime git cache for compare sessions
 - `.playwright-cli/` - local browser test artifacts
 
@@ -201,4 +201,4 @@ rm -rf .cache/pr-compare
 
 - This is a local review tool. It does not write comments, approvals, labels, or any other changes back to GitHub.
 - Binary or very large files are listed but not rendered in the text diff viewer.
-- Mergely is used from the vendored bundle in `cloned-sites/editor.mergely.com/`.
+- Mergely is used from the vendored bundle in `cloned-sites/editor.mergely.com/`. The original source page cloned for these assets is https://editor.mergely.com/.
