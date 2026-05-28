@@ -1,0 +1,6 @@
+.DS_Store
+.cache/
+.playwright-cli/
+tmp/
+node_modules/
+npm-debug.log*

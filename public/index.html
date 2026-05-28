@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GitHub PR Compare</title>
+    <link rel="icon" href="/vendor/favicon.ico">
+    <link rel="stylesheet" href="/styles.css?v=2">
+    <style>
+      .empty-diff #mergely .CodeMirror-lines {
+        visibility: hidden !important;
+      }
+      .empty-diff .mergely-wrap::after {
+        background: #ffffff;
+        content: "";
+        inset: 0;
+        pointer-events: none;
+        position: absolute;
+        z-index: 20;
+      }
+    </style>
+    <script>
+      var key = "";
+      var pathKey = "";
+      var isSample = false;
+      Object.defineProperty(window, "Mergely", {
+        configurable: true,
+        set(value) {
+          const WrappedMergely = class extends value {
+            constructor(...args) {
+              super(...args);
+              window.prCompareMergely = this;
+              this.cm("lhs").setValue("");
+              this.cm("rhs").setValue("");
+              this.update();
+            }
+          };
+          Object.defineProperty(window, "Mergely", {
+            configurable: true,
+            writable: true,
+            value: WrappedMergely
+          });
+        },
+        get() {
+          return undefined;
+        }
+      });
+    </script>
+    <script defer src="/vendor/editor.js"></script>
+    <script defer src="/app.js?v=2"></script>
+  </head>
+  <body class="empty-diff">
+    <main class="app-shell">
+      <form id="compare-form" class="topbar">
+        <div class="brand">
+          <span class="brand-mark">PR</span>
+          <div>
+            <h1>GitHub PR Compare</h1>
+            <p>Local side-by-side review powered by Mergely</p>
+          </div>
+        </div>
+        <label class="field pr-url-field">
+          <span>Pull request URL</span>
+          <input id="pr-url" name="prUrl" type="url" placeholder="https://github.com/org/repo/pull/123" required>
+        </label>
+        <label class="field branch-field">
+          <span>Base branch</span>
+          <input id="base-branch" name="baseBranch" type="text" value="master" required>
+        </label>
+        <button id="submit-button" type="submit">Compare</button>
+      </form>
+
+      <section id="message" class="message" hidden></section>
+
+      <section class="workspace">
+        <aside class="sidebar">
+          <div class="sidebar-header">
+            <div>
+              <h2 id="repo-title">No PR loaded</h2>
+              <p id="pr-meta">Submit a pull request URL to begin.</p>
+            </div>
+            <div id="totals" class="totals" hidden>
+              <span class="plus" id="total-additions">+0</span>
+              <span class="minus" id="total-deletions">-0</span>
+            </div>
+          </div>
+          <label class="filter">
+            <span>Filter files</span>
+            <input id="file-filter" type="search" placeholder="Filter files...">
+          </label>
+          <div id="file-tree" class="file-tree empty-state">Changed files will appear here.</div>
+        </aside>
+
+        <section class="diff-pane">
+          <header class="diff-header">
+            <div>
+              <h2 id="file-title">Select a file</h2>
+              <p id="file-subtitle">Base code will appear on the left, PR code on the right.</p>
+            </div>
+            <div class="diff-actions">
+              <button id="prev-change" type="button" disabled>Prev</button>
+              <button id="next-change" type="button" disabled>Next</button>
+              <label class="viewed-toggle">
+                <input id="viewed-toggle" type="checkbox" disabled>
+                Viewed
+              </label>
+            </div>
+          </header>
+          <div id="binary-notice" class="binary-notice" hidden></div>
+          <div id="titles">
+            <div class="title-column lhs"></div>
+            <div class="title-margin"></div>
+            <div class="title-column rhs"></div>
+          </div>
+          <div class="mergely-wrap">
+            <div id="mergely"></div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
